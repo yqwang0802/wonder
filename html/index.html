@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>随机A股股票代码生成器</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+      #stockCode {
+        font-size: 24px;
+        margin: 10px;
+      }
+      button {
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <div id="stockCode">点击按钮生成随机A股股票代码</div>
+      <button onclick="generateStockCode()">生成股票代码</button>
+    </div>
+
+    <script>
+      function generateStockCode() {
+        // 定义板块代码
+        const shanghaiPrefixes = [600, 601, 603, 605, 606, 688];
+        const shenzhenPrefixes = ["000", "002", 300];
+
+        // 随机选择板块
+        const isShanghai = Math.random() > 0.5;
+        const prefix = isShanghai
+          ? shanghaiPrefixes[
+              Math.floor(Math.random() * shanghaiPrefixes.length)
+            ]
+          : shenzhenPrefixes[
+              Math.floor(Math.random() * shenzhenPrefixes.length)
+            ];
+
+        // 生成后三位随机序号
+        const suffix = Math.floor(Math.random() * 1000)
+          .toString()
+          .padStart(3, "0");
+
+        // 组合成完整的股票代码
+        const stockCode = prefix.toString() + suffix;
+
+        // 显示股票代码
+        document.getElementById("stockCode").textContent = stockCode;
+      }
+    </script>
+  </body>
+</html>
